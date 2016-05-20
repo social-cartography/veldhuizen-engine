@@ -4,10 +4,10 @@
 
 (function($){
   
-  fourd = new FourD();
-  fourd.init('#display', {width: 600, height: 350, window: window});
-  var graph = fourd.graph;
-  fourd.clear();
+  fiveg = new FIVEG();
+  fiveg.init('#display', {width: 600, height: 350, window: window});
+  var graph = fiveg.graph;
+  fiveg.clear();
   
   function ui_random_graph(){
     var n = parseInt(prompt('number of vertices, e.g. 250:'));
@@ -18,7 +18,7 @@
     }
     
     n = continue_anyway ? n : sane;
-    n > 0 ? random(fourd, n) : undefined;
+    n > 0 ? random(fiveg, n) : undefined;
   }
   
   var build_graph;
@@ -28,35 +28,33 @@
     clearInterval(build_graph);
   }
   
-  function random(fourd, n){
+  function random(fiveg, n){
     if(!n){
       n = 0;
       return;
     }
     
-    fourd.clear();
+    fiveg.clear();
     
     var count = 0;
     build_graph = setInterval(function(){
-      vertices.push(fourd.graph.add_vertex({
+      vertices.push(fiveg.graph.add_vertex({
         cube: {
-          width: 5,
-          height: 5,
-          depth: 5,
-          texture: Math.random() >= 0.5 ? 'img/bob.png' : 'img/alice.png'
-        }
-        /*,
+          width: 0,
+          height: 0,
+          depth: 0,
+          texture: Math.random() >= 0.5 ? 'images/bob.png' : 'images/alice.png'
+        },
         label: {
           text: count.toString(),
         }
-        */
       }));
       
-      var source = fourd.graph.V[Math.floor(Math.random() * Object.keys(fourd.graph.V).length)];
-      var target = fourd.graph.V[Math.floor(Math.random() * Object.keys(fourd.graph.V).length)];
+      var source = fiveg.graph.V[Math.floor(Math.random() * Object.keys(fiveg.graph.V).length)];
+      var target = fiveg.graph.V[Math.floor(Math.random() * Object.keys(fiveg.graph.V).length)];
       
       if(count > 2){
-        fourd.graph.add_edge(source, target);
+        fiveg.graph.add_edge(source, target);
       }
       
       if(count++ >= n){
@@ -65,16 +63,16 @@
     }, 25);
   }
   
-  random(fourd, 25);
+  random(fiveg, 25);
   $('#random-graph').click(ui_random_graph);
   $('#pause').click(pause);
   $('#clear').click(clear);
   
   var last_bob;
-  function bob_and_alice(fourd){
+  function bob_and_alice(fiveg){
     var name = Math.random() > 0.5 ? 'Bob' : 'Alice';
-    var texture = Math.random() > 0.5 ? 'img/bob.png' : 'img/alice.png';
-    var bob = fourd.graph.add_vertex({
+    var texture = Math.random() > 0.5 ? 'images/bob.png' : 'images/alice.png';
+    var bob = fiveg.graph.add_vertex({
       cube: {
         width: 5,
         height: 5,
@@ -93,7 +91,7 @@
     });
 
     if(Math.random() > .5 && last_bob){
-      fourd.graph.add_edge(
+      fiveg.graph.add_edge(
         last_bob,
         bob
       );
@@ -106,8 +104,8 @@
   function collect_random(n){
     var i = 0;
     var collect_graph = setInterval(function(){
-      var v = fourd.graph.V[Math.floor(Math.random() * Object.keys(fourd.graph.V).length)];
-      fourd.graph.remove_vertex(vertices[i]);
+      var v = fiveg.graph.V[Math.floor(Math.random() * Object.keys(fiveg.graph.V).length)];
+      fiveg.graph.remove_vertex(vertices[i]);
       i += 1;
       if(i < n || i < vertices.length){
         clearInterval(collect_graph);
