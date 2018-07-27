@@ -4,6 +4,12 @@
   April 25th, 2015
 */
 
+html, body {
+    boder: 0;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font: "Times New Roman";
     font-size: 14px;
